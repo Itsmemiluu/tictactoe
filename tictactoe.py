@@ -49,18 +49,24 @@ class TicTacToe:
             self.player = 0 if self.player == 1 else 1
     
     def check_winner(self):
-        for condition in self.win_conditions:
-            line_sum = sum([self.game_array[j][i] for i,j in condition])
-            if line_sum == 0:
-                self.winner = 0
-                pygame.display.set_caption('O nyert')
-            elif line_sum == 3:
-                self.winner = 1
-                pygame.display.set_caption('X nyert')
-            
-            if line_sum in [0,3]:
-                self.draw_winner(condition)
-                self.draw_winner_text()
+        is_draw = all(all(cell != INF for cell in row) for row in self.game_array)
+        if is_draw and self.winner is None:
+            self.winner = -1
+            pygame.display.set_caption('Döntetlen')
+        else:
+            for condition in self.win_conditions:
+                line_sum = sum([self.game_array[j][i] for i, j in condition])
+                if line_sum == 0:
+                    self.winner = 0
+                    pygame.display.set_caption('O nyert')
+                elif line_sum == 3:
+                    self.winner = 1
+                    pygame.display.set_caption('X nyert')
+
+        if self.winner in [-1, 0, 1]:
+            self.draw_winner_text()
+            self.draw_winner(condition)
+
 
 
     def draw_winner(self,condition):
