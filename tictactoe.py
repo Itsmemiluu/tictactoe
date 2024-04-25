@@ -1,6 +1,7 @@
 import pygame
 import random
 
+print("hello world! :)")
 #Színek
 White= pygame.Color(255,255,255)
 Green= pygame.Color(0,255,0)
